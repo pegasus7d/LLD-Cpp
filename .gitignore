@@ -1,0 +1,14 @@
+# Compiled executables
+basics/01_classes_and_objects
+basics/02_structs
+basics/03_pointers_and_references
+basics/04_inheritance
+basics/05_virtual_functions_and_polymorphism
+basics/06_encapsulation_and_getters_setters
+basics/07_constructors_and_destructors
+basics/08_static_members
+
+# Generic binary output
+test
+*.out
+*.exe
