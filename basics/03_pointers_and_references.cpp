@@ -77,3 +77,119 @@
 //   What is a memory leak?
 //   Why should you prefer unique_ptr over raw new/delete?
 // -------------------------------------------------------------
+
+
+
+#include <iostream>
+#include <memory>
+
+
+using namespace std;
+
+
+
+
+class Box{
+
+	
+
+	public:
+		int side;
+		Box(int side):side(side){};
+		double volume(){
+			return side*side*side;
+		}
+
+		void display(){		
+			cout << "Side:" <<side<<endl;
+		    cout << "Voume: " << volume() << endl;
+		}	
+
+
+};
+
+
+void doubleValue(int val) { val=2*val;}   // works on a copy
+void doubleRef(int& val) { val=2*val;}    // works on the original
+
+
+
+
+
+void printBox(Box& b){
+	b.display();
+}
+
+
+
+
+
+int main(){
+	int x=42;
+	int* ptr=&x;
+
+	cout<<(*ptr)<<endl;
+
+	*ptr=100;
+
+	cout<<(ptr)<<endl;
+
+	cout<<(*ptr)<<endl;
+
+
+
+	int* ptr1=new int(7);
+	cout<<(*ptr1)<<endl;
+	delete ptr1;
+	ptr1=nullptr;
+
+
+	Box* b1=new Box(4);
+	b1->display();
+	delete b1;
+	b1=nullptr;
+
+
+
+	int a=7;;
+	int &ref=a;
+	ref=10;
+	cout<<a<<endl;
+
+	doubleValue(a);
+	cout<<a<<endl;
+
+
+
+	doubleRef(a);
+	cout<<a<<endl;
+
+
+	unique_ptr<Box> b=make_unique<Box>(5);
+	b->display();
+
+
+	Box stackBox(6);
+	printBox(stackBox);
+
+
+	shared_ptr<Box> s1=make_shared<Box>(3);
+	cout<<s1.use_count()<<endl;
+	shared_ptr<Box> s2 = s1;
+	cout << s1.use_count() << endl;
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
