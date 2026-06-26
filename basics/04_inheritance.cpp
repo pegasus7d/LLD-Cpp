@@ -73,3 +73,120 @@
 //   What does "public inheritance" mean vs "private inheritance"?
 //   When does inheritance make sense vs composition (HAS-A)?
 // -------------------------------------------------------------
+
+
+#include<iostream>
+using namespace std;
+
+
+
+class Animal{
+	private:
+		string name;
+		int age;
+	public:
+		Animal(string name,int age):name(name),age(age){}
+		string getName() { return name; }
+		int getAge()     { return age; }
+
+		void eat()   { cout << name << " is eating" << endl; }
+		void sleep() { cout << name << " is sleeping" << endl; }
+
+		void describe() {
+		    cout << "Name: " << name << endl;
+		    cout << "Age: "  << age  << endl;
+		}
+
+
+};
+
+
+class Dog : public Animal{
+
+	private:
+		string breed; 
+
+	public:
+		Dog(string name,int age,string breed):Animal(name,age),breed(breed){}
+		void bark(){
+			cout<<getName()<<" Woof!"<<endl;
+		}
+		void fetch(){
+			cout<<getName()<<" fetches the ball"<<endl;
+		}
+
+		void describe(){
+			Animal::describe();
+			cout<<getName()<<"'s breed:"<<breed<<endl;
+		}
+
+
+};
+
+
+
+class Bird:public Animal{
+
+	private:
+		bool canFly;
+
+	public:
+		Bird(string name,int age,bool canFly):Animal(name,age),canFly(canFly){}
+
+	
+		void fly(){
+			if(canFly){
+				cout<<getName()<<" is flying"<<endl;
+			}else{
+				cout<<getName()<<" cannot fly"<<endl;
+			}
+			
+		}
+		
+		void describe(){
+			Animal::describe();
+			cout << "Can fly: " << canFly << endl;
+
+		}	
+
+
+};
+
+int main(){
+
+
+	Dog d("Bruno", 3, "Labrador");
+
+	d.eat();
+	d.sleep();
+	d.bark();
+	d.fetch();
+	d.describe();
+
+
+
+	Bird b("Tuni",7,true);
+
+	b.fly();
+	b.describe();
+
+
+
+	b.eat();
+	b.sleep();
+	b.describe();
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
