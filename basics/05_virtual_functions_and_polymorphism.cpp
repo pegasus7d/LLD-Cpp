@@ -75,3 +75,83 @@
 //   What is the difference between overriding and overloading?
 //   When would you use an abstract class vs a concrete base class?
 // -------------------------------------------------------------
+
+
+
+#include<iostream>
+#include <vector>
+using namespace std;
+
+class Shape {
+public:
+    virtual double area()=0;
+    virtual void draw() = 0;
+    virtual ~Shape() {
+    	cout << "Shape destroyed" << endl;
+	}
+};
+
+class Circle : public Shape {
+private:
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+    double area() {
+        return 3.14159 * radius * radius;
+    }
+    void draw() override { cout << "Drawing Circle" << endl; }
+    ~Circle() {
+    	cout << "Circle destroyed" << endl;
+	}
+};
+
+
+class Rectangle : public Shape {
+private:
+    double width, height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    double area() override { return width * height; }
+    void draw() override { cout << "Drawing Rectangle" << endl; }
+    ~Rectangle() { cout << "Rectangle destroyed" << endl; }
+};
+
+class Triangle : public Shape {
+private:
+    double base, height;
+public:
+    Triangle(double b, double h) : base(b), height(h) {}
+    double area() override { return 0.5 * base * height; }
+    void draw() override { cout << "Drawing Triangle" << endl; }
+    ~Triangle() { cout << "Triangle destroyed" << endl; }
+};
+
+
+
+
+
+int main(){
+
+
+	vector<Shape*> shapes;
+	shapes.push_back(new Circle(5));
+	shapes.push_back(new Rectangle(4, 6));
+	shapes.push_back(new Triangle(3, 8));
+
+
+
+	for (Shape* s : shapes) {
+	    cout << s->area() << endl;
+	    s->draw();
+	}
+
+
+	// cleanup
+	for (Shape* s : shapes) {
+	    delete s;
+	}
+	
+
+}
+
+
