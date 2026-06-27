@@ -160,6 +160,8 @@ public:
 
 
 };
+
+
 AppConfig* AppConfig::instance = nullptr;	
 
 
