@@ -1,4 +1,4 @@
-# Compiled executables
+# Compiled executables (no extension = binary on macOS/Linux)
 basics/01_classes_and_objects
 basics/02_structs
 basics/03_pointers_and_references
@@ -7,8 +7,33 @@ basics/05_virtual_functions_and_polymorphism
 basics/06_encapsulation_and_getters_setters
 basics/07_constructors_and_destructors
 basics/08_static_members
+oop/01_composition
+oop/02_aggregation
+oop/03_association
+oop/04_interfaces
+design-patterns/01_singleton
+design-patterns/02_factory
+design-patterns/03_observer
+design-patterns/04_strategy
+design-patterns/05_builder
+design-patterns/06_state
+design-patterns/07_decorator
+design-patterns/08_adapter
+design-patterns/09_facade
+design-patterns/10_iterator
+design-patterns/11_composite
+design-patterns/12_proxy
+design-patterns/13_mediator
+design-patterns/14_chain_of_responsibility
+design-patterns/15_memento
+design-patterns/16_prototype
+design-patterns/17_bridge
+design-patterns/18_flyweight
+design-patterns/19_template_method
 
 # Generic binary output
 test
+test.cpp
 *.out
 *.exe
+*.dSYM
