@@ -1,3 +1,4 @@
+
 // =============================================================
 // ASSIGNMENT 8: Static Members and Methods
 // =============================================================
@@ -73,3 +74,138 @@
 //   What is the Singleton pattern and when is it useful?
 //   What are the downsides of Singleton?
 // -------------------------------------------------------------
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+
+
+
+class Employee {
+
+private:
+    string name;
+    int employeeId;
+    double salary;
+    static int totalEmployees;  // declaration
+
+public:
+    Employee(string name, double salary) : name(name), salary(salary) {
+        employeeId = ++totalEmployees;
+        cout<<"Hired!: Your employeeId: "<<employeeId<<endl;
+    }
+
+    ~Employee() {
+        // decrement totalEmployees
+        totalEmployees--;
+
+        // print left message
+        cout<<"GoodBye!: Your employeeId: "<<employeeId<<endl;
+    }
+
+    static int getTotalEmployees() {
+        return totalEmployees;
+    }
+
+    void display() {
+        cout<<"Name: "<<name<<endl;
+        cout<<"employeeId: "<<employeeId<<endl;
+        cout<<"salary: "<<salary<<endl;
+    }
+
+};
+
+
+int Employee::totalEmployees = 0;
+
+
+
+class MathUtils {
+public:
+    static int add(int a, int b) { return a+b; }
+    static int subtract(int a, int b) {return a-b; }
+    static double power(double base, int exp) {return pow(base,exp); }
+    static bool isPrime(int n) { 
+    	if (n < 2) return false;
+		for (int i = 2; i * i <= n; i++)
+		    if (n % i == 0) return false;
+		return true;
+    }
+    static int factorial(int n) { if(n==0)return 1; else return n*factorial(n-1);}
+};
+
+class AppConfig {
+
+private:
+	static AppConfig* instance;
+	string appName;
+    string version;
+
+    AppConfig(string name, string version) : appName(name), version(version) {}
+
+public:
+	static AppConfig* getInstance(){
+		if(instance==nullptr){
+			instance = new AppConfig("MyApp", "1.0");
+		}
+		return instance;
+	}
+	void display() {
+		cout<<"appName: "<<appName<<endl;
+		cout<<"version: "<<version<<endl;
+       
+    }    
+
+
+
+};
+AppConfig* AppConfig::instance = nullptr;	
+
+
+
+
+
+
+int main (){
+	Employee e1("Debayan", 50000);
+	Employee e2("Raj", 60000);
+	Employee e3("Priya", 55000);
+
+	cout << "Total: " << Employee::getTotalEmployees() << endl;
+	e1.display();
+
+	cout << MathUtils::add(5, 3) << endl;
+	cout << MathUtils::isPrime(7) << endl;
+	cout << MathUtils::factorial(5) << endl;
+	cout << MathUtils::power(2, 10) << endl;
+
+
+
+
+	AppConfig* c1 = AppConfig::getInstance();
+	AppConfig* c2 = AppConfig::getInstance();
+
+	c1->display();
+	cout << (c1 == c2) << endl;
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
