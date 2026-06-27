@@ -49,3 +49,104 @@
 //   Why can the same Song be in multiple Playlists?
 //   What would happen if Playlist deleted the songs in its destructor?
 // -------------------------------------------------------------
+
+#include<iostream>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+
+class Song {
+private:
+    string title;
+    string artist;
+    int duration;
+public:
+    Song(string title, string artist, int duration)
+        : title(title), artist(artist), duration(duration) {}
+
+    void play() {
+        cout << "Playing: " << title << " by " << artist << " (" << duration << "s)" << endl;
+    }
+    string getTitle() { return title; }
+    ~Song() { cout << "Song '" << title << "' deleted" << endl; }
+};
+
+
+class Playlist{
+private:
+	string name;
+	vector<Song*>songs;
+
+
+
+public:
+	Playlist(string name):name(name){}
+	void addSong(Song* s){
+		songs.push_back(s);
+	}
+	void play() {
+	    cout << "Playlist: " << name << endl;
+	    for (Song* s : songs)
+	        s->play();
+	}
+
+};
+
+
+int main(){
+
+
+	Song* s1 = new Song("Blinding Lights", "Weeknd", 200);
+    Song* s2 = new Song("Shape of You", "Ed Sheeran", 234);
+    Song* s3 = new Song("Levitating", "Dua Lipa", 203);
+    Song* s4 = new Song("Stay", "Justin Bieber", 141);
+
+    Playlist p1("Favourites");
+    Playlist p2("Workout");
+
+
+
+    p1.addSong(s1);
+    p1.addSong(s2);
+    p1.addSong(s3);
+
+    p2.addSong(s2);   // same song in both playlists
+    p2.addSong(s4);
+
+    p1.play();
+    p2.play();
+
+    s2->play();
+    delete s1;
+    delete s2;
+    delete s3;
+    delete s4; 
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
