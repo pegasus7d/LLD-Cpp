@@ -81,3 +81,111 @@
 //   What is the Rule of Five in modern C++?
 //   What is a shallow copy vs a deep copy?
 // -------------------------------------------------------------
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+
+class Matrix{
+private:
+	int rows;
+	int cols;
+	vector<vector<int>>data;
+public:
+
+	Matrix() : rows(0), cols(0) {}
+	Matrix(Matrix &other):rows(other.rows),cols(other.cols),data(other.data){
+		cout<<"Copy constructor called"<<endl;
+	}
+	Matrix(int rows,int cols):rows(rows),cols(cols){
+		data.resize(rows,vector<int>(cols,0));
+	}
+	~Matrix() {
+    	cout << "Destructor called for " << rows << "x" << cols << " matrix" << endl;
+	}
+
+
+
+	void fill(int val){
+		for(int i=0;i<rows;i++){
+			for(int j=0;j<cols;j++){
+				data[i][j]=val;
+			}
+		}
+	}
+
+	void display(){
+		for(int i=0;i<rows;i++){
+			for(int j=0;j<cols;j++){
+				cout<<data[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+
+		cout<<"_________________________"<<endl;
+	}
+
+
+
+
+};
+
+
+class Circle{
+private:
+	const double PI;
+	const double radius;
+public:
+	Circle(double radius):PI(3.14159),radius(radius){}
+	double area(){return PI*radius*radius;}
+
+
+
+};
+
+
+class Logger{
+
+private:
+	string name;
+
+public:
+	Logger(string name):name(name){
+		cout<<name<<" created"<<endl;
+	}
+	~Logger(){
+		cout<<name<<" destroyed"<<endl;
+	}
+
+};
+
+
+int main(){
+	Matrix m(3,3);
+	m.fill(6);
+	m.display();
+
+	Matrix m2=m;
+	m2.display();
+
+	Circle c1(6);
+	cout<<c1.area()<<endl;
+
+	Logger a("A");
+	{
+	    Logger b("B");
+	    Logger c("C");
+	}
+	Logger d("D");
+
+
+
+
+}
+
+
+
