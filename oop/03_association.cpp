@@ -53,3 +53,92 @@
 //   Here both Player and Team reference each other — bidirectional
 //   Why do we need a forward declaration for Team?
 // -------------------------------------------------------------
+
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Team;
+
+
+class Player{
+private:
+	string name;
+	string position;
+	Team* team;
+
+public:
+
+	Player(string name,string position):name(name),position(position),team(nullptr){}
+	void joinTeam(Team* team){this->team=team;}
+	string getName(){return name;}
+	string getPosition(){return position;}
+	void showInfo();
+};
+
+class Team {
+private:
+    string teamName;
+    vector<Player*> players;
+public:
+    Team(string teamName) : teamName(teamName) {}
+
+    void addPlayer(Player* p) {
+        players.push_back(p);
+        p->joinTeam(this);
+    }
+
+    string getName() { return teamName; }
+
+    void showRoster() {
+        for(Player* player:players){
+        	cout<<player->getName()<<endl;
+        }
+        cout<<endl;
+    }
+};
+
+
+void Player::showInfo(){
+		cout << name << " | " << position;
+	    if (team != nullptr)
+	        cout << " | Team: " << team->getName();
+	    cout << endl;
+
+}
+
+
+
+int main(){
+
+	Player p1("Virat", "Batsman");
+    Player p2("Bumrah", "Bowler");
+    Player p3("Rohit", "Batsman");
+    Player p4("Jadeja", "AllRounder");
+
+    Team t1("India");
+    Team t2("Mumbai Indians");
+
+    t1.addPlayer(&p1);
+    t1.addPlayer(&p2);
+    t2.addPlayer(&p3);
+    t2.addPlayer(&p4);
+
+    t1.showRoster();
+    t2.showRoster();
+
+    p1.showInfo();
+    p2.showInfo();
+    p3.showInfo();
+    p4.showInfo();
+
+
+
+
+
+}
+
+
