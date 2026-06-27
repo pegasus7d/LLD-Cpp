@@ -52,3 +52,88 @@
 //   Why do we store Engine by value (not pointer) in composition?
 //   What happens to Engine and Wheels when Car goes out of scope?
 // -------------------------------------------------------------
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Engine {
+private:
+    int horsepower;
+    string fuelType;
+public:
+    Engine(int hp, string fuel) : horsepower(hp), fuelType(fuel) {}
+    void start() {
+        cout << "Engine started: " << horsepower << "HP, fuel: " << fuelType << endl;
+    }
+    ~Engine() {
+        cout << "Engine destroyed" << endl;
+    }
+};
+
+
+class Wheel{
+private:
+	int size;
+	string type;
+public:
+	Wheel(int size,string type):size(size),type(type){}
+
+	void rotate(){
+		 cout << size << "inch " << type << " wheel rotating" << endl;
+	}
+
+	~Wheel(){
+		cout<<"Wheel destroyed"<<endl;
+	}
+};
+
+class Car{
+private:
+	string brand;
+	Engine engine;
+	vector<Wheel>wheels;
+public:
+	Car(string brand, int hp, string fuel) : brand(brand), engine(hp, fuel) {}
+
+	void drive(){
+		engine.start();
+		for(Wheel& w: wheels){
+			w.rotate();
+		}
+	}
+
+	void addWheel(int size, string type){
+		 wheels.emplace_back(Wheel(size, type));
+	}
+
+	~Car(){
+		cout<<"Car destroyed"<<endl;
+	}
+
+
+
+
+
+};
+
+
+
+
+
+
+
+int main(){
+
+	Car car("Toyota", 150, "Petrol");
+	car.addWheel(18, "Alloy");
+	car.addWheel(18, "Alloy");
+	car.addWheel(18, "Alloy");
+	car.addWheel(18, "Alloy");
+	car.drive();
+
+}
+
+
